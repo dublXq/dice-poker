@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * @author Evgeniy_Tyslevich
  * @link https://github.com/dublXq
@@ -11,42 +13,48 @@ public class GameSystem {
     protected static final int Cube_FIVE = 5;
     protected static final int Cube_SIX = 6;
 
-    double SummaOfAllNumbersPerson = 0.0; // Общая сумма очков игрока
-    double SummaOfAllNumbersBot = 40.00; // Общая сумма очков бота
-    double ViewSummaForAllPlayers; // Переменная отвечающая за временный вывод
+    public int SummaOfAllNumbersPerson; // Общая сумма очков игрока
+    public int SummaOfAllNumbersBot; // Общая сумма очков бота
+    int ViewSummaForAllPlayers; // Переменная отвечающая за временный вывод
 
+    String randomCube;
+    String one =
+            "-----\n" +
+                    "|   |\n" +
+                    "| o |\n" +
+                    "|   |\n" +
+                    "-----";
+    String two =
+            "-----\n" +
+                    "|o  |\n" +
+                    "|   |\n" +
+                    "|  o|\n" +
+                    "-----";
+    String three =
+            "-----\n" +
+                    "|o  |\n" +
+                    "| o |\n" +
+                    "|  o|\n" +
+                    "-----";
+    String four =
+            "-----\n" +
+                    "|o o|\n" +
+                    "|   |\n" +
+                    "|o o|\n" +
+                    "-----";
+    String five =
+            "-----\n" +
+                    "|o o|\n" +
+                    "| o |\n" +
+                    "|o o|\n" +
+                    "-----";
 
-    String one = "-----\n" +
-            "|   |\n" +
-            "| o |\n" +
-            "|   |\n" +
-            "-----";
-    String two = "-----\n" +
-            "|o  |\n" +
-            "|   |\n" +
-            "|  o|\n" +
-            "-----";
-    String three = "-----\n" +
-            "|o  |\n" +
-            "| o |\n" +
-            "|  o|\n" +
-            "-----";
-    String four = "-----\n" +
-            "|o o|\n" +
-            "|   |\n" +
-            "|o o|\n" +
-            "-----";
-    String five = "-----\n" +
-            "|o o|\n" +
-            "| o |\n" +
-            "|o o|\n" +
-            "-----";
-
-    String six = "-----\n" +
-            "|o o|\n" +
-            "|o o|\n" +
-            "|o o|\n" +
-            "-----";
+    String six =
+            "-----\n" +
+                    "|o o|\n" +
+                    "|o o|\n" +
+                    "|o o|\n" +
+                    "-----";
 
     String area = "------------------------------------\n" +
             "|\t\t\t\t      | Игрок | Бот |\n" +
@@ -100,7 +108,34 @@ public class GameSystem {
             "|      Yahtzee        |              <---  \n" +
             "|_____________________|_______|___________|\n" +
             "|\t\t\t\t\t  |       |           |\n" +
-            "|      ОБЩИЙ СЧЕТ     |              <---  \n" +
+            "|      ОБЩИЙ СЧЕТ     |  " + SummaOfAllNumbersPerson + "       " + SummaOfAllNumbersBot + "    <---  \n" +
             "|_____________________|_______|___________|";
+
+    public void CubeRandom() {
+        Random random = new Random();
+        String[] arrayCubes = new String[]{one, two, three, four, five, six};
+        for (int i = 1; i <= 6; i++) {
+            randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
+            System.out.println(randomCube);
+            PlayersScore();
+        }
+
+    }
+
+    public void PlayersScore() {
+        if (randomCube.equals(one)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_ONE;
+        } else if (randomCube.equals(two)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_TWO;
+        } else if (randomCube.equals(three)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_THREE;
+        } else if (randomCube.equals(four)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_FOUR;
+        } else if (randomCube.equals(five)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_FIVE;
+        } else if (randomCube.equals(six)) {
+            SummaOfAllNumbersPerson = SummaOfAllNumbersPerson + Cube_SIX;
+        }
+    }
 
 }
