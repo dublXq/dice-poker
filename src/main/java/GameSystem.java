@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -5,7 +6,7 @@ import java.util.Random;
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class GameSystem {
-
+    public ArrayList<Integer> arrayList = new ArrayList<>();
     public final int CUBE_ONE = 1;
     public final int CUBE_TWO = 2;
     public final int CUBE_THREE = 3;
@@ -15,9 +16,8 @@ public class GameSystem {
     public static String area;
     public static int summaOfAllNumbersPerson; // Общая сумма очков игрока
     public static int summaOfAllNumbersBot; // Общая сумма очков бота
-    int ViewSummaForAllPlayers; // Переменная отвечающая за временный вывод
-    String randomCube;
-
+    int viewSummaForAllPlayers; // Переменная отвечающая за временный вывод
+    public String randomCube;
 
     final String one =
             """
@@ -27,6 +27,7 @@ public class GameSystem {
                     |   |
                     -----""";
     final String two =
+
             """
                     -----
                     |o  |
@@ -63,31 +64,49 @@ public class GameSystem {
                     |o o|
                     -----""";
 
-    public static void updateArea() {
+    public void createAndUpdateArea(int playerNumberOfUnits, int playerNumberOfDeuces,
+                                    int playerNumberOfTriplets, int playerNumberOfFours,
+                                    int playerNumberOfFives, int playerNumberOfSixes, int botNumberOfUnits,
+                                    int botNumberOfDeuces, int botNumberOfTriplets, int botNumberOfFours,
+                                    int botNumberOfFives, int botNumberOfSixes) {
+        arrayList.add(playerNumberOfUnits);
+        arrayList.add(playerNumberOfDeuces);
+        arrayList.add(playerNumberOfTriplets);
+        arrayList.add(playerNumberOfFours);
+        arrayList.add(playerNumberOfFives);
+        arrayList.add(playerNumberOfSixes);
+        arrayList.add(botNumberOfUnits);
+        arrayList.add(botNumberOfDeuces);
+        arrayList.add(botNumberOfTriplets);
+        arrayList.add(botNumberOfFours);
+        arrayList.add(botNumberOfFives);
+        arrayList.add(botNumberOfSixes);
+        int playerSummaAllNumbers = playerNumberOfUnits + playerNumberOfDeuces + playerNumberOfTriplets + playerNumberOfFours + playerNumberOfFives + playerNumberOfSixes;
+        int botSummaAllNumbers = botNumberOfUnits + botNumberOfDeuces + botNumberOfTriplets + botNumberOfFours + botNumberOfFives + botNumberOfSixes;
         area =
                 "------------------------------------\n" +
                         "|\t\t\t\t      | Игрок | Бот |\n" +
-                        "|_____________________|_______|_____|_____     \n" +
+                        "|_____________________|_______|_____|_____\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Единицы        |              <---  \n" +
+                        "|      Единицы        |  " + playerNumberOfUnits + "       " + botNumberOfUnits + "     <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|       Двойки        |              <---\n" +
+                        "|       Двойки        |  " + playerNumberOfDeuces + "       " + botNumberOfDeuces + "     <---\n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|       Тройки        |              <--- \n" +
+                        "|       Тройки        |  " + playerNumberOfTriplets + "       " + botNumberOfTriplets + "     <--- \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Четверки       |              <---  \n" +
+                        "|      Четверки       |  " + playerNumberOfFours + "       " + botNumberOfFours + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Пятерки        |              <---  \n" +
+                        "|      Пятерки        |  " + playerNumberOfFives + "       " + botNumberOfFives + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Шестерки       |              <---  \n" +
+                        "|      Шестерки       |  " + playerNumberOfSixes + "       " + botNumberOfSixes + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|        Сумма        |              <---  \n" +
+                        "|        Сумма        |  " + playerSummaAllNumbers + "      " + botSummaAllNumbers + "    <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
                         "|        Бонус        |              <---  \n" +
@@ -117,44 +136,54 @@ public class GameSystem {
                         "|      Yahtzee        |              <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      ОБЩИЙ СЧЕТ     |  " + summaOfAllNumbersPerson + "     " + summaOfAllNumbersBot + "   <---  \n" +
+                        "|      ОБЩИЙ СЧЕТ     |  " + summaOfAllNumbersPerson + "       " + summaOfAllNumbersBot + "   <---  \n" +
                         "|_____________________|_______|___________|";
-        area = String.format(area, summaOfAllNumbersPerson, summaOfAllNumbersBot);
+        area = String.format(area, playerNumberOfUnits, playerNumberOfDeuces,
+                playerNumberOfTriplets, playerNumberOfFours,
+                playerNumberOfFives, playerNumberOfSixes, botNumberOfUnits,
+                botNumberOfDeuces, botNumberOfTriplets, botNumberOfFours,
+                botNumberOfFives, botNumberOfSixes);
         System.out.println(area);
     }
 
-    public void cubeRandom(int player) {
+    public void cubeRandom(int player, ArrayList<Integer> arrayList) {
+        this.arrayList = arrayList;
         Random random = new Random();
         String[] arrayCubes = new String[]{one, two, three, four, five, six};
         for (int i = 1; i <= 6; i++) {
             randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
             System.out.println(randomCube);
             if (player == 1) {
-                playersPersonScore();
+                playersPersonScore(arrayList.set(0, i), arrayList.set(1, i), arrayList.set(2, i), arrayList.set(3, i), arrayList.set(4, i), arrayList.set(5, i));
             } else {
-                playersBotScore();
+                playersBotScore(arrayList.set(6, i), arrayList.set(7, i), arrayList.set(8, i), arrayList.set(9, i), arrayList.set(10, i), arrayList.set(11, i));
             }
         }
     }
 
-    public void playersPersonScore() {
+    public void playersPersonScore(int playerNumberOfUnits, int playerNumberOfDeuces,
+                                   int playerNumberOfTriplets, int playerNumberOfFours,
+                                   int playerNumberOfFives, int playerNumberOfSixes) {
         switch (randomCube) {
-            case one -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_ONE;
-            case two -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_TWO;
-            case three -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_THREE;
-            case four -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_FOUR;
-            case five -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_FIVE;
-            case six -> summaOfAllNumbersPerson = summaOfAllNumbersPerson + CUBE_SIX;
+            case one -> arrayList.set(0, playerNumberOfUnits + CUBE_ONE);
+            case two -> arrayList.set(1, playerNumberOfDeuces + CUBE_TWO);
+            case three -> arrayList.set(2, playerNumberOfTriplets + CUBE_THREE);
+            case four -> arrayList.set(3, playerNumberOfFours + CUBE_FOUR);
+            case five -> arrayList.set(4, playerNumberOfFives + CUBE_FIVE);
+            case six -> arrayList.set(5, playerNumberOfSixes + CUBE_SIX);
         }
     }
-    public void playersBotScore() {
+
+    public void playersBotScore(int botNumberOfUnits,
+                                int botNumberOfDeuces, int botNumberOfTriplets, int botNumberOfFours,
+                                int botNumberOfFives, int botNumberOfSixes) {
         switch (randomCube) {
-            case one -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_ONE;
-            case two -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_TWO;
-            case three -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_THREE;
-            case four -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_FOUR;
-            case five -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_FIVE;
-            case six -> summaOfAllNumbersBot = summaOfAllNumbersBot + CUBE_SIX;
+            case one -> arrayList.set(6, botNumberOfUnits + CUBE_ONE);
+            case two -> arrayList.set(7, botNumberOfDeuces + CUBE_TWO);
+            case three -> arrayList.set(8, botNumberOfTriplets + CUBE_THREE);
+            case four -> arrayList.set(9, botNumberOfFours + CUBE_FOUR);
+            case five -> arrayList.set(10, botNumberOfFives + CUBE_FIVE);
+            case six -> arrayList.set(11, botNumberOfSixes + CUBE_SIX);
         }
     }
 }
