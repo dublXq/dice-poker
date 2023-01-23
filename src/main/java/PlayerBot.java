@@ -1,6 +1,8 @@
 /**
  * @author Evgeniy_Tyslevich
- * @link https://github.com/dublXq
+ * @link <a href="https://github.com/dublXq">...</a>
  */
 public class PlayerBot {
+
+
 }
