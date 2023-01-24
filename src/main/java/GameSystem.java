@@ -69,7 +69,6 @@ public class GameSystem {
                                     int playerNumberOfFives, int playerNumberOfSixes, int botNumberOfUnits,
                                     int botNumberOfDeuces, int botNumberOfTriplets, int botNumberOfFours,
                                     int botNumberOfFives, int botNumberOfSixes) {
-
         arrayList.add(playerNumberOfUnits);
         arrayList.add(playerNumberOfDeuces);
         arrayList.add(playerNumberOfTriplets);
@@ -82,7 +81,6 @@ public class GameSystem {
         arrayList.add(botNumberOfFours);
         arrayList.add(botNumberOfFives);
         arrayList.add(botNumberOfSixes);
-
         int playerSummaAllNumbers = playerNumberOfUnits + playerNumberOfDeuces + playerNumberOfTriplets + playerNumberOfFours + playerNumberOfFives + playerNumberOfSixes;
         int botSummaAllNumbers = botNumberOfUnits + botNumberOfDeuces + botNumberOfTriplets + botNumberOfFours + botNumberOfFives + botNumberOfSixes;
         area =
@@ -151,31 +149,28 @@ public class GameSystem {
     public void cubeRandom(int player, ArrayList<Integer> arrayList) {
         this.arrayList = arrayList;
         Random random = new Random();
-        arrayList.add(random.nextInt(6) + 1);
         String[] arrayCubes = new String[]{one, two, three, four, five, six};
         for (int i = 1; i <= 6; i++) {
             randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
             System.out.println(randomCube);
             if (player == 1) {
-                    playersPersonScore();
-
+                playersPersonScore(arrayList.set(0, i), arrayList.set(1, i), arrayList.set(2, i), arrayList.set(3, i), arrayList.set(4, i), arrayList.set(5, i));
             } else {
-                playersBotScore();
+                playersBotScore(arrayList.set(6, i), arrayList.set(7, i), arrayList.set(8, i), arrayList.set(9, i), arrayList.set(10, i), arrayList.set(11, i));
             }
         }
     }
-
 
     public void playersPersonScore(int playerNumberOfUnits, int playerNumberOfDeuces,
                                    int playerNumberOfTriplets, int playerNumberOfFours,
                                    int playerNumberOfFives, int playerNumberOfSixes) {
         switch (randomCube) {
-            case one -> arrayList.add(0, playerNumberOfUnits + CUBE_ONE);
-            case two -> arrayList.add(1, playerNumberOfDeuces + CUBE_TWO);
-            case three -> arrayList.add(2, playerNumberOfTriplets + CUBE_THREE);
-            case four -> arrayList.add(3, playerNumberOfFours + CUBE_FOUR);
-            case five -> arrayList.add(4, playerNumberOfFives + CUBE_FIVE);
-            case six -> arrayList.add(5, playerNumberOfSixes + CUBE_SIX);
+            case one -> arrayList.set(0, playerNumberOfUnits + CUBE_ONE);
+            case two -> arrayList.set(1, playerNumberOfDeuces + CUBE_TWO);
+            case three -> arrayList.set(2, playerNumberOfTriplets + CUBE_THREE);
+            case four -> arrayList.set(3, playerNumberOfFours + CUBE_FOUR);
+            case five -> arrayList.set(4, playerNumberOfFives + CUBE_FIVE);
+            case six -> arrayList.set(5, playerNumberOfSixes + CUBE_SIX);
         }
     }
 
