@@ -146,18 +146,13 @@ public class GameSystem {
         System.out.println(area);
     }
 
-    public void cubeRandom(int player, ArrayList<Integer> arrayList) {
+    public void throwRandomCube(ArrayList<Integer> arrayList) {
         this.arrayList = arrayList;
         Random random = new Random();
         String[] arrayCubes = new String[]{one, two, three, four, five, six};
         for (int i = 1; i <= 6; i++) {
             randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
             System.out.println(randomCube);
-            if (player == 1) {
-                playersPersonScore(arrayList.set(0, i), arrayList.set(1, i), arrayList.set(2, i), arrayList.set(3, i), arrayList.set(4, i), arrayList.set(5, i));
-            } else {
-                playersBotScore(arrayList.set(6, i), arrayList.set(7, i), arrayList.set(8, i), arrayList.set(9, i), arrayList.set(10, i), arrayList.set(11, i));
-            }
         }
     }
 

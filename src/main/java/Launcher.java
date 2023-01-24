@@ -16,8 +16,7 @@ public class Launcher {
             GameSystem gameSystem = new GameSystem();
 
             System.out.println("\n---------------------------------------\n");
-            gameSystem.cubeRandom(1, gameSystem.arrayList);
-            System.out.println(Arrays.toString(new ArrayList[]{gameSystem.arrayList}));
+            gameSystem.throwRandomCube(gameSystem.arrayList);
             gameSystem.createAndUpdateArea(gameSystem.arrayList.get(0),gameSystem.arrayList.get(1),gameSystem.arrayList.get(2),
                     gameSystem.arrayList.get(3), gameSystem.arrayList.get(4), gameSystem.arrayList.get(5),
                     gameSystem.arrayList.get(6),gameSystem.arrayList.get(7),gameSystem.arrayList.get(8),
