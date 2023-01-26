@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -16,12 +14,9 @@ public class Launcher {
             GameSystem gameSystem = new GameSystem();
 
             System.out.println("\n---------------------------------------\n");
-            gameSystem.throwRandomCube(gameSystem.arrayList);
-            gameSystem.createAndUpdateArea(gameSystem.arrayList.get(0),gameSystem.arrayList.get(1),gameSystem.arrayList.get(2),
-                    gameSystem.arrayList.get(3), gameSystem.arrayList.get(4), gameSystem.arrayList.get(5),
-                    gameSystem.arrayList.get(6),gameSystem.arrayList.get(7),gameSystem.arrayList.get(8),
-                    gameSystem.arrayList.get(9), gameSystem.arrayList.get(10), gameSystem.arrayList.get(11));
             System.out.println();
+            gameSystem.start();
+            System.out.println(gameSystem.arrayList);
         }
     }
 }

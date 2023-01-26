@@ -6,84 +6,78 @@ import java.util.Random;
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class GameSystem {
-    public ArrayList<Integer> arrayList = new ArrayList<>();
+
+    public int playerNumberOfUnits;
+    public int playerNumberOfDeuces;
+    public int playerNumberOfTriplets;
+    public int playerNumberOfFours;
+    public int playerNumberOfFives;
+    public int playerNumberOfSixes;
+    public int botNumberOfUnits;
+    public int botNumberOfDeuces;
+    public int botNumberOfTriplets;
+    public int botNumberOfFours;
+    public int botNumberOfFives;
+    public int botNumberOfSixes;
+
+
     public final int CUBE_ONE = 1;
     public final int CUBE_TWO = 2;
     public final int CUBE_THREE = 3;
     public final int CUBE_FOUR = 4;
     public final int CUBE_FIVE = 5;
     public final int CUBE_SIX = 6;
-    public static String area;
+    public static String scoreCard;
     public static int summaOfAllNumbersPerson; // Общая сумма очков игрока
     public static int summaOfAllNumbersBot; // Общая сумма очков бота
     int viewSummaForAllPlayers; // Переменная отвечающая за временный вывод
     public String randomCube;
 
-    final String one =
-            """
+    final String diceOne = """
                     -----
                     |   |
                     | o |
                     |   |
                     -----""";
-    final String two =
-
-            """
+    final String diceTwo = """
                     -----
                     |o  |
                     |   |
                     |  o|
                     -----""";
-    final String three =
-            """
+    final String diceThree = """
                     -----
                     |o  |
                     | o |
                     |  o|
                     -----""";
-    final String four =
-            """
+    final String diceFour = """
                     -----
                     |o o|
                     |   |
                     |o o|
                     -----""";
-    final String five =
-            """
+    final String diceFive = """
                     -----
                     |o o|
                     | o |
                     |o o|
                     -----""";
 
-    final String six =
-            """
+    final String diceSix = """
                     -----
                     |o o|
                     |o o|
                     |o o|
                     -----""";
+    ArrayList<String> arrayCubesRandom = new ArrayList<>();
+    public ArrayList<Integer> arrayList = new ArrayList<>();
 
-    public void createAndUpdateArea(int playerNumberOfUnits, int playerNumberOfDeuces,
-                                    int playerNumberOfTriplets, int playerNumberOfFours,
-                                    int playerNumberOfFives, int playerNumberOfSixes, int botNumberOfUnits,
-                                    int botNumberOfDeuces, int botNumberOfTriplets, int botNumberOfFours,
-                                    int botNumberOfFives, int botNumberOfSixes) {
-        arrayList.add(playerNumberOfUnits);
-        arrayList.add(playerNumberOfDeuces);
-        arrayList.add(playerNumberOfTriplets);
-        arrayList.add(playerNumberOfFours);
-        arrayList.add(playerNumberOfFives);
-        arrayList.add(playerNumberOfSixes);
-        arrayList.add(botNumberOfUnits);
-        arrayList.add(botNumberOfDeuces);
-        arrayList.add(botNumberOfTriplets);
-        arrayList.add(botNumberOfFours);
-        arrayList.add(botNumberOfFives);
-        arrayList.add(botNumberOfSixes);
+    public void createAndUpdateArea() {
+
         int playerSummaAllNumbers = playerNumberOfUnits + playerNumberOfDeuces + playerNumberOfTriplets + playerNumberOfFours + playerNumberOfFives + playerNumberOfSixes;
         int botSummaAllNumbers = botNumberOfUnits + botNumberOfDeuces + botNumberOfTriplets + botNumberOfFours + botNumberOfFives + botNumberOfSixes;
-        area =
+        scoreCard =
                 "------------------------------------\n" +
                         "|\t\t\t\t      | Игрок | Бот |\n" +
                         "|_____________________|_______|_____|_____\n" +
@@ -138,48 +132,77 @@ public class GameSystem {
                         "|\t\t\t\t\t  |       |           |\n" +
                         "|      ОБЩИЙ СЧЕТ     |  " + summaOfAllNumbersPerson + "       " + summaOfAllNumbersBot + "   <---  \n" +
                         "|_____________________|_______|___________|";
-        area = String.format(area, playerNumberOfUnits, playerNumberOfDeuces,
+        scoreCard = String.format(scoreCard, playerNumberOfUnits, playerNumberOfDeuces,
                 playerNumberOfTriplets, playerNumberOfFours,
                 playerNumberOfFives, playerNumberOfSixes, botNumberOfUnits,
                 botNumberOfDeuces, botNumberOfTriplets, botNumberOfFours,
                 botNumberOfFives, botNumberOfSixes);
-        System.out.println(area);
+        System.out.println(scoreCard);
     }
 
-    public void throwRandomCube(ArrayList<Integer> arrayList) {
-        this.arrayList = arrayList;
+    public void throwRandomCube() {
         Random random = new Random();
-        String[] arrayCubes = new String[]{one, two, three, four, five, six};
+        String[] arrayCubes = new String[]{diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix};
         for (int i = 1; i <= 6; i++) {
             randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
             System.out.println(randomCube);
+            arrayCubesRandom.add(randomCube);
         }
     }
 
-    public void playersPersonScore(int playerNumberOfUnits, int playerNumberOfDeuces,
-                                   int playerNumberOfTriplets, int playerNumberOfFours,
-                                   int playerNumberOfFives, int playerNumberOfSixes) {
-        switch (randomCube) {
-            case one -> arrayList.set(0, playerNumberOfUnits + CUBE_ONE);
-            case two -> arrayList.set(1, playerNumberOfDeuces + CUBE_TWO);
-            case three -> arrayList.set(2, playerNumberOfTriplets + CUBE_THREE);
-            case four -> arrayList.set(3, playerNumberOfFours + CUBE_FOUR);
-            case five -> arrayList.set(4, playerNumberOfFives + CUBE_FIVE);
-            case six -> arrayList.set(5, playerNumberOfSixes + CUBE_SIX);
+    public void playersPersonScore() {
+        for (String s : arrayCubesRandom) {
+            switch (s) {
+                case diceOne -> playerNumberOfUnits = playerNumberOfUnits + CUBE_ONE;
+                case diceTwo -> playerNumberOfDeuces = playerNumberOfDeuces + CUBE_TWO;
+                case diceThree -> playerNumberOfTriplets = playerNumberOfTriplets + CUBE_THREE;
+                case diceFour -> playerNumberOfFours = playerNumberOfFours + CUBE_FOUR;
+                case diceFive -> playerNumberOfFives = playerNumberOfFives + CUBE_FIVE;
+                case diceSix -> playerNumberOfSixes = playerNumberOfSixes + CUBE_SIX;
+            }
         }
+        arrayAddPersonScore();
     }
-
-    public void playersBotScore(int botNumberOfUnits,
-                                int botNumberOfDeuces, int botNumberOfTriplets, int botNumberOfFours,
-                                int botNumberOfFives, int botNumberOfSixes) {
-        switch (randomCube) {
-            case one -> arrayList.set(6, botNumberOfUnits + CUBE_ONE);
-            case two -> arrayList.set(7, botNumberOfDeuces + CUBE_TWO);
-            case three -> arrayList.set(8, botNumberOfTriplets + CUBE_THREE);
-            case four -> arrayList.set(9, botNumberOfFours + CUBE_FOUR);
-            case five -> arrayList.set(10, botNumberOfFives + CUBE_FIVE);
-            case six -> arrayList.set(11, botNumberOfSixes + CUBE_SIX);
+    private void arrayAddPersonScore() {
+        arrayList.add(0, playerNumberOfUnits);
+        arrayList.add(1, playerNumberOfDeuces);
+        arrayList.add(2, playerNumberOfTriplets);
+        arrayList.add(3, playerNumberOfFours);
+        arrayList.add(4, playerNumberOfFives);
+        arrayList.add(5, playerNumberOfSixes);
+    }
+    public void playersBotScore() {
+        for (String s : arrayCubesRandom){
+            switch (s) {
+                case diceOne -> botNumberOfUnits = botNumberOfUnits + CUBE_ONE;
+                case diceTwo -> botNumberOfDeuces = botNumberOfDeuces + CUBE_TWO;
+                case diceThree -> botNumberOfTriplets = botNumberOfTriplets + CUBE_THREE;
+                case diceFour -> botNumberOfFours = botNumberOfFours + CUBE_FOUR;
+                case diceFive -> botNumberOfFives = botNumberOfFives + CUBE_FIVE;
+                case diceSix -> botNumberOfSixes = botNumberOfSixes + CUBE_SIX;
+            }
         }
+        arrayAddBotScore();
+    }
+    private void arrayAddBotScore() {
+        arrayList.add(6, botNumberOfUnits);
+        arrayList.add(7, botNumberOfDeuces);
+        arrayList.add(8, botNumberOfTriplets);
+        arrayList.add(9, botNumberOfFours);
+        arrayList.add(10, botNumberOfFives);
+        arrayList.add(11, botNumberOfSixes);
+    }
+    public void start() {
+        throwRandomCube();
+        playersPersonScore();
+        createAndUpdateArea();
+        System.out.println(arrayList);
+        arrayCubesRandom.clear();
+        System.out.println("\n---------------------------------------\n");
+        throwRandomCube();
+        playersBotScore();
+        System.out.println(arrayList);
+        System.out.println("\n---------------------------------------\n");
+        createAndUpdateArea();
     }
 }
-
