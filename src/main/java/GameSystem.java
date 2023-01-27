@@ -6,21 +6,6 @@ import java.util.Random;
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class GameSystem {
-
-    public int playerNumberOfUnits;
-    public int playerNumberOfDeuces;
-    public int playerNumberOfTriplets;
-    public int playerNumberOfFours;
-    public int playerNumberOfFives;
-    public int playerNumberOfSixes;
-    public int botNumberOfUnits;
-    public int botNumberOfDeuces;
-    public int botNumberOfTriplets;
-    public int botNumberOfFours;
-    public int botNumberOfFives;
-    public int botNumberOfSixes;
-
-
     public final int CUBE_ONE = 1;
     public final int CUBE_TWO = 2;
     public final int CUBE_THREE = 3;
@@ -33,117 +18,117 @@ public class GameSystem {
     int viewSummaForAllPlayers; // Переменная отвечающая за временный вывод
     public String randomCube;
 
-    final String diceOne = """
-                    -----
-                    |   |
-                    | o |
-                    |   |
-                    -----""";
+    static final String diceOne = """
+            -----
+            |   |
+            | o |
+            |   |
+            -----""";
     final String diceTwo = """
-                    -----
-                    |o  |
-                    |   |
-                    |  o|
-                    -----""";
+            -----
+            |o  |
+            |   |
+            |  o|
+            -----""";
     final String diceThree = """
-                    -----
-                    |o  |
-                    | o |
-                    |  o|
-                    -----""";
+            -----
+            |o  |
+            | o |
+            |  o|
+            -----""";
     final String diceFour = """
-                    -----
-                    |o o|
-                    |   |
-                    |o o|
-                    -----""";
+            -----
+            |o o|
+            |   |
+            |o o|
+            -----""";
     final String diceFive = """
-                    -----
-                    |o o|
-                    | o |
-                    |o o|
-                    -----""";
+            -----
+            |o o|
+            | o |
+            |o o|
+            -----""";
 
     final String diceSix = """
-                    -----
-                    |o o|
-                    |o o|
-                    |o o|
-                    -----""";
-    ArrayList<String> arrayCubesRandom = new ArrayList<>();
-    public ArrayList<Integer> arrayList = new ArrayList<>();
+            -----
+            |o o|
+            |o o|
+            |o o|
+            -----""";
+    public static ArrayList<String> arrayCubesRandom = new ArrayList<>();
+    public static ArrayList<Integer> arrayList = new ArrayList<>();
+    public static ArrayList<Integer> arrayListDouble = new ArrayList<>();
 
     public void createAndUpdateArea() {
-
-        int playerSummaAllNumbers = playerNumberOfUnits + playerNumberOfDeuces + playerNumberOfTriplets + playerNumberOfFours + playerNumberOfFives + playerNumberOfSixes;
-        int botSummaAllNumbers = botNumberOfUnits + botNumberOfDeuces + botNumberOfTriplets + botNumberOfFours + botNumberOfFives + botNumberOfSixes;
+        GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerNumberOfUnits + GlobalVariables.playerNumberOfDeuces +
+                GlobalVariables.playerNumberOfTriplets + GlobalVariables.playerNumberOfFours
+                + GlobalVariables.playerNumberOfFives + GlobalVariables.playerNumberOfSixes;
+        int botSummaAllNumbers = GlobalVariables.botNumberOfUnits + GlobalVariables.botNumberOfDeuces
+                + GlobalVariables.botNumberOfTriplets + GlobalVariables.botNumberOfFours + GlobalVariables.botNumberOfFives + GlobalVariables.botNumberOfSixes;
         scoreCard =
                 "------------------------------------\n" +
                         "|\t\t\t\t      | Игрок | Бот |\n" +
                         "|_____________________|_______|_____|_____\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Единицы        |  " + playerNumberOfUnits + "       " + botNumberOfUnits + "     <---  \n" +
+                        "|      Единицы        |  " + GlobalVariables.playerNumberOfUnits + "       " + GlobalVariables.botNumberOfUnits + "     <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|       Двойки        |  " + playerNumberOfDeuces + "       " + botNumberOfDeuces + "     <---\n" +
+                        "|       Двойки        |  " + GlobalVariables.playerNumberOfDeuces + "       " + GlobalVariables.botNumberOfDeuces + "     <---\n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|       Тройки        |  " + playerNumberOfTriplets + "       " + botNumberOfTriplets + "     <--- \n" +
+                        "|       Тройки        |  " + GlobalVariables.playerNumberOfTriplets + "       " + GlobalVariables.botNumberOfTriplets + "     <--- \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Четверки       |  " + playerNumberOfFours + "       " + botNumberOfFours + "       <---  \n" +
+                        "|      Четверки       |  " + GlobalVariables.playerNumberOfFours + "       " + GlobalVariables.botNumberOfFours + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Пятерки        |  " + playerNumberOfFives + "       " + botNumberOfFives + "       <---  \n" +
+                        "|      Пятерки        |  " + GlobalVariables.playerNumberOfFives + "       " + GlobalVariables.botNumberOfFives + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Шестерки       |  " + playerNumberOfSixes + "       " + botNumberOfSixes + "       <---  \n" +
+                        "|      Шестерки       |  " + GlobalVariables.playerNumberOfSixes + "       " + GlobalVariables.botNumberOfSixes + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|        Сумма        |  " + playerSummaAllNumbers + "      " + botSummaAllNumbers + "    <---  \n" +
+                        "|        Сумма        |  " + GlobalVariables.playerSummaAllNumbers + "       " + botSummaAllNumbers + "    <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|        Бонус        |              <---  \n" +
+                        "|        Бонус        |  " + GlobalVariables.playerBonusPoints + "       " + GlobalVariables.botBonusPoints + "            <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|   Три одинаковых    |              <---  \n" +
+                        "|   Три одинаковых    |  " + GlobalVariables.playerThreeOfAKindPoints + "       " + GlobalVariables.botThreeOfAKindPoints + "            <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|  Четыре одинаковых  |              <---  \n" +
+                        "|  Четыре одинаковых  |  " + GlobalVariables.playerFourOfAKindPoints + "       " + GlobalVariables.botFourOfAKindPoints + "            <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Фулл-хаус      |              <---  \n" +
+                        "|      Фулл-хаус      |  " + GlobalVariables.playerFullHousePoints + "       " + GlobalVariables.botFullHousePoints + "            <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|   Маленький стрит   |              <---  \n" +
+                        "|   Маленький стрит   |  " + GlobalVariables.playerSmallStraightPoints + "       " + GlobalVariables.botSmallStraightPoints + "             <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|    Большой стрит    |              <---  \n" +
+                        "|    Большой стрит    |  " + GlobalVariables.playerLargeStraightPoints + "       " + GlobalVariables.botLargeStraightPoints + "           <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|        Шанс         |              <---  \n" +
+                        "|        Шанс         |  " + GlobalVariables.playerChancePoints + "       " + GlobalVariables.botChancePoints + "             <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Единицы        |              <---  \n" +
-                        "|_____________________|_______|___________|\n" +
-                        "|\t\t\t\t\t  |       |           |\n" +
-                        "|      Yahtzee        |              <---  \n" +
+                        "|      Yahtzee        |  " + GlobalVariables.playerYahtzeePoints + "       " + GlobalVariables.botYahtzeePoints + "             <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
                         "|      ОБЩИЙ СЧЕТ     |  " + summaOfAllNumbersPerson + "       " + summaOfAllNumbersBot + "   <---  \n" +
                         "|_____________________|_______|___________|";
-        scoreCard = String.format(scoreCard, playerNumberOfUnits, playerNumberOfDeuces,
-                playerNumberOfTriplets, playerNumberOfFours,
-                playerNumberOfFives, playerNumberOfSixes, botNumberOfUnits,
-                botNumberOfDeuces, botNumberOfTriplets, botNumberOfFours,
-                botNumberOfFives, botNumberOfSixes);
+        scoreCard = String.format(scoreCard, GlobalVariables.playerNumberOfUnits, GlobalVariables.playerNumberOfDeuces,
+                GlobalVariables.playerNumberOfTriplets, GlobalVariables.playerNumberOfFours,
+                GlobalVariables.playerNumberOfFives, GlobalVariables.playerNumberOfSixes, GlobalVariables.botNumberOfUnits,
+                GlobalVariables.botNumberOfDeuces, GlobalVariables.botNumberOfTriplets, GlobalVariables.botNumberOfFours,
+                GlobalVariables.botNumberOfFives, GlobalVariables.botNumberOfSixes);
         System.out.println(scoreCard);
     }
 
     public void throwRandomCube() {
         Random random = new Random();
         String[] arrayCubes = new String[]{diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix};
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 5; i++) {
             randomCube = arrayCubes[random.nextInt(arrayCubes.length)];
             System.out.println(randomCube);
             arrayCubesRandom.add(randomCube);
@@ -153,54 +138,63 @@ public class GameSystem {
     public void playersPersonScore() {
         for (String s : arrayCubesRandom) {
             switch (s) {
-                case diceOne -> playerNumberOfUnits = playerNumberOfUnits + CUBE_ONE;
-                case diceTwo -> playerNumberOfDeuces = playerNumberOfDeuces + CUBE_TWO;
-                case diceThree -> playerNumberOfTriplets = playerNumberOfTriplets + CUBE_THREE;
-                case diceFour -> playerNumberOfFours = playerNumberOfFours + CUBE_FOUR;
-                case diceFive -> playerNumberOfFives = playerNumberOfFives + CUBE_FIVE;
-                case diceSix -> playerNumberOfSixes = playerNumberOfSixes + CUBE_SIX;
+                case diceOne -> GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
+                case diceTwo -> GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
+                case diceThree ->
+                        GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
+                case diceFour -> GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
+                case diceFive -> GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
+                case diceSix -> GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
             }
         }
         arrayAddPersonScore();
     }
+
     private void arrayAddPersonScore() {
-        arrayList.add(0, playerNumberOfUnits);
-        arrayList.add(1, playerNumberOfDeuces);
-        arrayList.add(2, playerNumberOfTriplets);
-        arrayList.add(3, playerNumberOfFours);
-        arrayList.add(4, playerNumberOfFives);
-        arrayList.add(5, playerNumberOfSixes);
+        arrayList.add(0, GlobalVariables.playerNumberOfUnits);
+        arrayList.add(1, GlobalVariables.playerNumberOfDeuces);
+        arrayList.add(2, GlobalVariables.playerNumberOfTriplets);
+        arrayList.add(3, GlobalVariables.playerNumberOfFours);
+        arrayList.add(4, GlobalVariables.playerNumberOfFives);
+        arrayList.add(5, GlobalVariables.playerNumberOfSixes);
     }
+
     public void playersBotScore() {
-        for (String s : arrayCubesRandom){
+        for (String s : arrayCubesRandom) {
             switch (s) {
-                case diceOne -> botNumberOfUnits = botNumberOfUnits + CUBE_ONE;
-                case diceTwo -> botNumberOfDeuces = botNumberOfDeuces + CUBE_TWO;
-                case diceThree -> botNumberOfTriplets = botNumberOfTriplets + CUBE_THREE;
-                case diceFour -> botNumberOfFours = botNumberOfFours + CUBE_FOUR;
-                case diceFive -> botNumberOfFives = botNumberOfFives + CUBE_FIVE;
-                case diceSix -> botNumberOfSixes = botNumberOfSixes + CUBE_SIX;
+                case diceOne -> GlobalVariables.botNumberOfUnits = GlobalVariables.botNumberOfUnits + CUBE_ONE;
+                case diceTwo -> GlobalVariables.botNumberOfDeuces = GlobalVariables.botNumberOfDeuces + CUBE_TWO;
+                case diceThree ->
+                        GlobalVariables.botNumberOfTriplets = GlobalVariables.botNumberOfTriplets + CUBE_THREE;
+                case diceFour -> GlobalVariables.botNumberOfFours = GlobalVariables.botNumberOfFours + CUBE_FOUR;
+                case diceFive -> GlobalVariables.botNumberOfFives = GlobalVariables.botNumberOfFives + CUBE_FIVE;
+                case diceSix -> GlobalVariables.botNumberOfSixes = GlobalVariables.botNumberOfSixes + CUBE_SIX;
             }
         }
         arrayAddBotScore();
     }
+
     private void arrayAddBotScore() {
-        arrayList.add(6, botNumberOfUnits);
-        arrayList.add(7, botNumberOfDeuces);
-        arrayList.add(8, botNumberOfTriplets);
-        arrayList.add(9, botNumberOfFours);
-        arrayList.add(10, botNumberOfFives);
-        arrayList.add(11, botNumberOfSixes);
+        arrayList.add(6, GlobalVariables.botNumberOfUnits);
+        arrayList.add(7, GlobalVariables.botNumberOfDeuces);
+        arrayList.add(8, GlobalVariables.botNumberOfTriplets);
+        arrayList.add(9, GlobalVariables.botNumberOfFours);
+        arrayList.add(10, GlobalVariables.botNumberOfFives);
+        arrayList.add(11, GlobalVariables.botNumberOfSixes);
     }
+
     public void start() {
+        PlayerPerson playerPerson = new PlayerPerson();
         throwRandomCube();
         playersPersonScore();
         createAndUpdateArea();
         System.out.println(arrayList);
+        playerPerson.playerCalculateBonusPoints();
         arrayCubesRandom.clear();
         System.out.println("\n---------------------------------------\n");
         throwRandomCube();
         playersBotScore();
+        playerPerson.playerCalculateBonusPoints();
         System.out.println(arrayList);
         System.out.println("\n---------------------------------------\n");
         createAndUpdateArea();
