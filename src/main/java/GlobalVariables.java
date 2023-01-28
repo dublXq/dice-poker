@@ -13,6 +13,7 @@ public class GlobalVariables {
     public static int botNumberOfFours;
     public static int botNumberOfFives;
     public static int botNumberOfSixes;
+    public static int botSummaAllNumbers;
     public static int playerBonusPoints;
     public static int playerThreeOfAKindPoints;
     public static int playerFourOfAKindPoints;

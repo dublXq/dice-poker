@@ -63,7 +63,7 @@ public class GameSystem {
         GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerNumberOfUnits + GlobalVariables.playerNumberOfDeuces +
                 GlobalVariables.playerNumberOfTriplets + GlobalVariables.playerNumberOfFours
                 + GlobalVariables.playerNumberOfFives + GlobalVariables.playerNumberOfSixes;
-        int botSummaAllNumbers = GlobalVariables.botNumberOfUnits + GlobalVariables.botNumberOfDeuces
+        GlobalVariables.botSummaAllNumbers = GlobalVariables.botNumberOfUnits + GlobalVariables.botNumberOfDeuces
                 + GlobalVariables.botNumberOfTriplets + GlobalVariables.botNumberOfFours + GlobalVariables.botNumberOfFives + GlobalVariables.botNumberOfSixes;
         scoreCard =
                 "------------------------------------\n" +
@@ -88,7 +88,7 @@ public class GameSystem {
                         "|      Шестерки       |  " + GlobalVariables.playerNumberOfSixes + "       " + GlobalVariables.botNumberOfSixes + "       <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
-                        "|        Сумма        |  " + GlobalVariables.playerSummaAllNumbers + "       " + botSummaAllNumbers + "    <---  \n" +
+                        "|        Сумма        |  " + GlobalVariables.playerSummaAllNumbers + "       " + GlobalVariables.botSummaAllNumbers + "    <---  \n" +
                         "|_____________________|_______|___________|\n" +
                         "|\t\t\t\t\t  |       |           |\n" +
                         "|        Бонус        |  " + GlobalVariables.playerBonusPoints + "       " + GlobalVariables.botBonusPoints + "            <---  \n" +
@@ -198,5 +198,44 @@ public class GameSystem {
         System.out.println(arrayList);
         System.out.println("\n---------------------------------------\n");
         createAndUpdateArea();
+    }
+
+    public static void clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
+        String[] variableNames = {
+                "playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
+                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
+                "playerSummaAllNumbers", "botNumberOfUnits", "botNumberOfDeuces",
+                "botNumberOfTriplets", "botNumberOfFours", "botNumberOfFives",
+                "botNumberOfSixes", "playerBonusPoints", "playerThreeOfAKindPoints",
+                "playerFourOfAKindPoints", "playerFullHousePoints", "playerSmallStraightPoints",
+                "playerLargeStraightPoints", "playerChancePoints", "playerYahtzeePoints",
+                "botBonusPoints", "botThreeOfAKindPoints", "botFourOfAKindPoints",
+                "botFullHousePoints", "botSmallStraightPoints", "botLargeStraightPoints",
+                "botChancePoints", "botYahtzeePoints"
+        };
+
+        for (String variableName : variableNames) {
+            GlobalVariables.class.getField(variableName).set(null, 0);
+        }
+    }
+
+    public static void clearGlobalVariablesPersonNumbers() throws NoSuchFieldException, IllegalAccessException {
+        String[] variableNames = {
+                "playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
+                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
+                "playerSummaAllNumbers"
+        };
+
+        for (String variableName : variableNames) {
+            GlobalVariables.class.getField(variableName).set(null, 0);
+        }
+    }
+
+    public static void clearGlobalVariablesBotNumbers() throws NoSuchFieldException, IllegalAccessException {
+        String[] variablesName = {"botNumberOfUnits", "botNumberOfDeuces", "botNumberOfTriplets",
+                "botNumberOfFours", "botNumberOfFives", "botNumberOfSixes"};
+        for (String variables : variablesName) {
+            GlobalVariables.class.getField(variables).set(null, 0);
+        }
     }
 }
