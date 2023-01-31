@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,10 +17,9 @@ public class GameSystem {
     public static String scoreCard;
     public static int summaOfAllNumbersPerson; // Общая сумма очков игрока
     public static int summaOfAllNumbersBot; // Общая сумма очков бота
-    int viewSummaForAllPlayers; // Переменная отвечающая за временный вывод
     public String randomCube;
-
-    static final String diceOne = """
+    public static List<String> variableNames;
+    final String diceOne = """
             -----
             |   |
             | o |
@@ -55,9 +56,8 @@ public class GameSystem {
             |o o|
             |o o|
             -----""";
-    public static ArrayList<String> arrayCubesRandom = new ArrayList<>();
+    public ArrayList<String> arrayCubesRandom = new ArrayList<>();
     public static ArrayList<Integer> arrayList = new ArrayList<>();
-    public static ArrayList<Integer> arrayListDouble = new ArrayList<>();
 
     public void createAndUpdateArea() {
         GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerNumberOfUnits + GlobalVariables.playerNumberOfDeuces +
@@ -140,8 +140,7 @@ public class GameSystem {
             switch (s) {
                 case diceOne -> GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
                 case diceTwo -> GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
-                case diceThree ->
-                        GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
+                case diceThree -> GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
                 case diceFour -> GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
                 case diceFive -> GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
                 case diceSix -> GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
@@ -164,8 +163,7 @@ public class GameSystem {
             switch (s) {
                 case diceOne -> GlobalVariables.botNumberOfUnits = GlobalVariables.botNumberOfUnits + CUBE_ONE;
                 case diceTwo -> GlobalVariables.botNumberOfDeuces = GlobalVariables.botNumberOfDeuces + CUBE_TWO;
-                case diceThree ->
-                        GlobalVariables.botNumberOfTriplets = GlobalVariables.botNumberOfTriplets + CUBE_THREE;
+                case diceThree -> GlobalVariables.botNumberOfTriplets = GlobalVariables.botNumberOfTriplets + CUBE_THREE;
                 case diceFour -> GlobalVariables.botNumberOfFours = GlobalVariables.botNumberOfFours + CUBE_FOUR;
                 case diceFive -> GlobalVariables.botNumberOfFives = GlobalVariables.botNumberOfFives + CUBE_FIVE;
                 case diceSix -> GlobalVariables.botNumberOfSixes = GlobalVariables.botNumberOfSixes + CUBE_SIX;
@@ -182,60 +180,21 @@ public class GameSystem {
         arrayList.add(10, GlobalVariables.botNumberOfFives);
         arrayList.add(11, GlobalVariables.botNumberOfSixes);
     }
+    public static List<String> clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
 
-    public void start() {
-        PlayerPerson playerPerson = new PlayerPerson();
-        throwRandomCube();
-        playersPersonScore();
-        createAndUpdateArea();
-        System.out.println(arrayList);
-        playerPerson.playerCalculateBonusPoints();
-        arrayCubesRandom.clear();
-        System.out.println("\n---------------------------------------\n");
-        throwRandomCube();
-        playersBotScore();
-        playerPerson.playerCalculateBonusPoints();
-        System.out.println(arrayList);
-        System.out.println("\n---------------------------------------\n");
-        createAndUpdateArea();
-    }
-
-    public static void clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
-        String[] variableNames = {
-                "playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
-                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
-                "playerSummaAllNumbers", "botNumberOfUnits", "botNumberOfDeuces",
-                "botNumberOfTriplets", "botNumberOfFours", "botNumberOfFives",
+        variableNames = new ArrayList<>(Arrays.asList("playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
+                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes", "playerSummaAllNumbers",
+                "botNumberOfUnits", "botNumberOfDeuces", "botNumberOfTriplets", "botNumberOfFours", "botNumberOfFives",
                 "botNumberOfSixes", "playerBonusPoints", "playerThreeOfAKindPoints",
-                "playerFourOfAKindPoints", "playerFullHousePoints", "playerSmallStraightPoints",
-                "playerLargeStraightPoints", "playerChancePoints", "playerYahtzeePoints",
-                "botBonusPoints", "botThreeOfAKindPoints", "botFourOfAKindPoints",
-                "botFullHousePoints", "botSmallStraightPoints", "botLargeStraightPoints",
-                "botChancePoints", "botYahtzeePoints"
-        };
+                "playerFourOfAKindPoints", "playerFullHousePoints", "playerYahtzeePoints",
+                "playerLargeStraightPoints", "playerChancePoints", "botThreeOfAKindPoints",
+                "botBonusPoints", "botFourOfAKindPoints", "botFullHousePoints",
+                "botSmallStraightPoints", "botLargeStraightPoints", "botChancePoints",
+                "botYahtzeePoints"));
 
         for (String variableName : variableNames) {
             GlobalVariables.class.getField(variableName).set(null, 0);
         }
-    }
-
-    public static void clearGlobalVariablesPersonNumbers() throws NoSuchFieldException, IllegalAccessException {
-        String[] variableNames = {
-                "playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
-                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
-                "playerSummaAllNumbers"
-        };
-
-        for (String variableName : variableNames) {
-            GlobalVariables.class.getField(variableName).set(null, 0);
-        }
-    }
-
-    public static void clearGlobalVariablesBotNumbers() throws NoSuchFieldException, IllegalAccessException {
-        String[] variablesName = {"botNumberOfUnits", "botNumberOfDeuces", "botNumberOfTriplets",
-                "botNumberOfFours", "botNumberOfFives", "botNumberOfSixes"};
-        for (String variables : variablesName) {
-            GlobalVariables.class.getField(variables).set(null, 0);
-        }
+        return variableNames;
     }
 }

@@ -12,7 +12,6 @@ public class PlayerPerson {
 
     public void playerCheckTripleDice() {
 
-
     }
 
     public void playerCheckQuadrupleDice() {
