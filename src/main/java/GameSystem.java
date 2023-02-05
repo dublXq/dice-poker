@@ -1,13 +1,11 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author Evgeniy_Tyslevich
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class GameSystem {
+    static GameSystem gameSystem = new GameSystem();
     public final int CUBE_ONE = 1;
     public final int CUBE_TWO = 2;
     public final int CUBE_THREE = 3;
@@ -136,18 +134,61 @@ public class GameSystem {
     }
 
     public void playersPersonScore() {
-        for (String s : arrayCubesRandom) {
-            switch (s) {
-                case diceOne -> GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
-                case diceTwo -> GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
-                case diceThree -> GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
-                case diceFour -> GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
-                case diceFive -> GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
-                case diceSix -> GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
-            }
-        }
+
+        List<String> cubesNumber = arrayCubesRandom;
+
+           // #1
+           if (cubesNumber.contains(diceOne) && variableNames.contains("playerNumberOfUnits")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceOne)) {
+                       GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
+                   }
+               }
+
+           }
+           // #2
+           if (cubesNumber.contains(diceTwo) && variableNames.contains("playerNumberOfDeuces")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceTwo)) {
+                       GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
+                   }
+               }
+           }
+           // #3
+           if (cubesNumber.contains(diceThree) && variableNames.contains("playerNumberOfTriplets")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceThree)) {
+                       GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
+                   }
+               }
+           }
+           // #4
+           if (cubesNumber.contains(diceFour) && variableNames.contains("playerNumberOfFours")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceFour)) {
+                       GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
+                   }
+               }
+           }
+           // #5
+           if (cubesNumber.contains(diceFive) && variableNames.contains("playerNumberOfFives")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceFive)) {
+                       GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
+                   }
+               }
+           }
+           // #6
+           if (cubesNumber.contains(diceSix) && variableNames.contains("playerNumberOfSixes")) {
+               for (String s : arrayCubesRandom) {
+                   if (s.equals(diceSix)) {
+                       GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
+                   }
+               }
+           }
         arrayAddPersonScore();
     }
+
 
     private void arrayAddPersonScore() {
         arrayList.add(0, GlobalVariables.playerNumberOfUnits);
@@ -180,7 +221,8 @@ public class GameSystem {
         arrayList.add(10, GlobalVariables.botNumberOfFives);
         arrayList.add(11, GlobalVariables.botNumberOfSixes);
     }
-    public static List<String> clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
+
+    public static void collectionAllVariablesNames() {
 
         variableNames = new ArrayList<>(Arrays.asList("playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
                 "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes", "playerSummaAllNumbers",
@@ -192,9 +234,12 @@ public class GameSystem {
                 "botSmallStraightPoints", "botLargeStraightPoints", "botChancePoints",
                 "botYahtzeePoints"));
 
+    }
+
+    public static void clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
+
         for (String variableName : variableNames) {
             GlobalVariables.class.getField(variableName).set(null, 0);
         }
-        return variableNames;
     }
 }
