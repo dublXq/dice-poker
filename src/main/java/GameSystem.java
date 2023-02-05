@@ -5,7 +5,6 @@ import java.util.*;
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class GameSystem {
-    static GameSystem gameSystem = new GameSystem();
     public final int CUBE_ONE = 1;
     public final int CUBE_TWO = 2;
     public final int CUBE_THREE = 3;
@@ -136,7 +135,6 @@ public class GameSystem {
     public void playersPersonScore() {
 
         List<String> cubesNumber = arrayCubesRandom;
-
            // #1
            if (cubesNumber.contains(diceOne) && variableNames.contains("playerNumberOfUnits")) {
                for (String s : arrayCubesRandom) {
@@ -197,29 +195,6 @@ public class GameSystem {
         arrayList.add(3, GlobalVariables.playerNumberOfFours);
         arrayList.add(4, GlobalVariables.playerNumberOfFives);
         arrayList.add(5, GlobalVariables.playerNumberOfSixes);
-    }
-
-    public void playersBotScore() {
-        for (String s : arrayCubesRandom) {
-            switch (s) {
-                case diceOne -> GlobalVariables.botNumberOfUnits = GlobalVariables.botNumberOfUnits + CUBE_ONE;
-                case diceTwo -> GlobalVariables.botNumberOfDeuces = GlobalVariables.botNumberOfDeuces + CUBE_TWO;
-                case diceThree -> GlobalVariables.botNumberOfTriplets = GlobalVariables.botNumberOfTriplets + CUBE_THREE;
-                case diceFour -> GlobalVariables.botNumberOfFours = GlobalVariables.botNumberOfFours + CUBE_FOUR;
-                case diceFive -> GlobalVariables.botNumberOfFives = GlobalVariables.botNumberOfFives + CUBE_FIVE;
-                case diceSix -> GlobalVariables.botNumberOfSixes = GlobalVariables.botNumberOfSixes + CUBE_SIX;
-            }
-        }
-        arrayAddBotScore();
-    }
-
-    private void arrayAddBotScore() {
-        arrayList.add(6, GlobalVariables.botNumberOfUnits);
-        arrayList.add(7, GlobalVariables.botNumberOfDeuces);
-        arrayList.add(8, GlobalVariables.botNumberOfTriplets);
-        arrayList.add(9, GlobalVariables.botNumberOfFours);
-        arrayList.add(10, GlobalVariables.botNumberOfFives);
-        arrayList.add(11, GlobalVariables.botNumberOfSixes);
     }
 
     public static void collectionAllVariablesNames() {

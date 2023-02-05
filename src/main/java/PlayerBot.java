@@ -4,5 +4,9 @@
  */
 public class PlayerBot {
 
-
+    public static void playerBotCalculateBonusPoints() {
+        if (GlobalVariables.botSummaAllNumbers >= 63) {
+            GlobalVariables.botBonusPoints = 35;
+        }
+    }
 }

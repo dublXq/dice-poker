@@ -4,9 +4,10 @@
  */
 public class PlayerPerson {
 
-    public void playerCalculateBonusPoints() {
+    public static void playerCalculateBonusPoints() {
         if (GlobalVariables.playerSummaAllNumbers >= 63) {
             GlobalVariables.playerBonusPoints = 35;
+            GameSystem.variableNames.remove("playerBonusPoints");
         }
     }
 

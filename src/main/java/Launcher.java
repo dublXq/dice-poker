@@ -78,9 +78,12 @@ public class Launcher {
         startWalkBot();
         System.out.println("-----------------------");
         startWalkPerson(time);
+        System.out.println(GlobalVariables.playerSummaAllNumbers);
+        PlayerPerson.playerCalculateBonusPoints();
         System.out.println("-----------------------");
         startWalkBot();
         System.out.println("-----------------------");
+
     }
 
     private static void startWalkPerson(int time) throws NoSuchFieldException, IllegalAccessException, IOException {
@@ -110,14 +113,15 @@ public class Launcher {
             System.out.print("1 - Перебросить кубики\n2 - Засчитать\nОтвет: ");
             String numb = scanner.nextLine();
             if (numb.equals("1")) {
-                allClear();
                 if (time == 0) {
                     System.out.println("Это был последний возможный бросок. Выбери куда засчитать очки?");
                     // Код (метод)
+                    time = 3;
                     launcher.methodResultScare();
                     break;
 
                 } else {
+                    allClear();
                     launcher.start();
                     time--;
                 }
@@ -256,7 +260,6 @@ public class Launcher {
 
         int index = random.nextInt(integerArrayList.size());
         number = integerArrayList.get(index);
-
         arrayCubesRandoms.add(number);
         hashSet.add(number);
         integerArrayList.clear();
@@ -356,7 +359,8 @@ public class Launcher {
 //                 если пятерки -> перебор массива кубиков -> находим пятерки -> сумма -> GlobalVariables.playerNumberOfFives
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceFive::equals).count();
                 stream = stream * gameSystem.CUBE_FIVE;
-                GlobalVariables.playerNumberOfFives = stream;;
+                GlobalVariables.playerNumberOfFives = stream;
+                ;
                 GameSystem.variableNames.remove("playerNumberOfFives");
             }
             case "playerNumberOfSixes" -> {
