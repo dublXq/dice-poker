@@ -18,7 +18,7 @@ public class Launcher {
     static ArrayList<Integer> arrayCubesRandoms = new ArrayList<>();
     static HashSet<Integer> hashSet = new HashSet<>();
 
-    public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException {
+    public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException, InterruptedException {
 
         int time = 3;
 
@@ -55,34 +55,31 @@ public class Launcher {
                 numb_2 = scanner.nextLine();
             }
         }
-
         RollOrScore(time);
         startWalkBot();
 
-        System.out.println("Ну что, продолжаем. 2-й раунд.\nНапоминаем что вам нужно собрать 63 балла, чтобы получить бонус в 35 очков ^_^");
-        startWalkPerson(time);
-
-        System.out.println("Воу Воу, интересно, кто же выиграет?)");
-        startWalkBot();
-        System.out.println("-----------------------");
-        startWalkPerson(time);
-        System.out.println("-----------------------");
-        startWalkBot();
-        System.out.println("-----------------------");
-        startWalkPerson(time);
-        System.out.println("-----------------------");
-        startWalkBot();
-        System.out.println("-----------------------");
-        startWalkPerson(time);
-        System.out.println("-----------------------");
-        startWalkBot();
-        System.out.println("-----------------------");
-        startWalkPerson(time);
-        System.out.println(GlobalVariables.playerSummaAllNumbers);
+        while (true) {
+            if (hashSet.size() == 6) {
+                break;
+            } else {
+                PlayerPerson.wordBookWordsOfSupport();
+                startWalkPerson(time);
+                System.out.println("------------------------------------");
+                startWalkBot();
+            }
+        }
         PlayerPerson.playerCalculateBonusPoints();
-        System.out.println("-----------------------");
-        startWalkBot();
-        System.out.println("-----------------------");
+        System.out.println("------------------------------------");
+
+        System.out.println("Ну что ж, дорогой друг. Поздравляю! Ты прошел первый раунд игры. Твоя сумма очков, сейчас составляет --> "
+                + GlobalVariables.playerSummaAllNumbers + " очков.\n" +
+                "Переходим ко второму раунду!");
+        for (int i = 10; i >= 0; i--) {
+            Thread.sleep(1000);
+            System.out.println("Старт через " + i + " секунд");
+        }
+        System.out.println("----------- START -----------");
+
 
     }
 
@@ -183,13 +180,26 @@ public class Launcher {
         System.out.print("1 - Единицы\n2 - Двойки\n3 - Тройки\n4 - Четверки\n5 - Пятерки\n6 - Шестерки\nОтвет: ");
         String numb = scanner.nextLine();
         numb = scanner.nextLine();
+
         while (true) {
-            if (stringArrayList.contains(numb)) {
-                System.out.print("Вы уже это вводили, попробуйте еще раз\nВыберите от 1 до 6, куда желаете записать число\nОтвет:");
+            if (numb.isEmpty()) {
+                System.out.print("Введи цифру от 1 до 6, для выбора куда хочешь засчитать свои очки\nОтвет: ");
+                numb = scanner.nextLine();
+            } else if (!Character.isDigit(numb.charAt(0))) {
+                System.out.print("Ты ввел не цифру! Попробуй еще раз\nОтвет: ");
                 numb = scanner.nextLine();
             } else {
-                stringArrayList.add(numb);
-                break;
+                int viewNumber = Integer.parseInt(numb);
+                if (viewNumber < 1 || viewNumber > 6) {
+                    System.out.print("Выход за границы! Ты ввел -> " + viewNumber + ". Требуется ввод от 1 до 6\nОтвет: ");
+                    numb = scanner.nextLine();
+                } else if (stringArrayList.contains(numb)) {
+                    System.out.print("Ты уже это вводил, забыл?. Попробуй еще раз\nВыбери от 1 до 6, куда желаешь записать число\nОтвет: ");
+                    numb = scanner.nextLine();
+                } else {
+                    stringArrayList.add(numb);
+                    break;
+                }
             }
         }
         switch (numb) {
@@ -278,7 +288,6 @@ public class Launcher {
                 GlobalVariables.botNumberOfUnits = stream;
                 gameSystem.createAndUpdateArea();
                 GameSystem.variableNames.remove("botNumberOfUnits");
-                System.out.println(GameSystem.variableNames);
             }
             case 2 -> {
                 // если двойки -> перебор массива кубиков -> находим двойки -> сумма -> GlobalVariables.playerNumberOfDeuces
@@ -360,7 +369,6 @@ public class Launcher {
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceFive::equals).count();
                 stream = stream * gameSystem.CUBE_FIVE;
                 GlobalVariables.playerNumberOfFives = stream;
-                ;
                 GameSystem.variableNames.remove("playerNumberOfFives");
             }
             case "playerNumberOfSixes" -> {

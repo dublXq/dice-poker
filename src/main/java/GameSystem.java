@@ -59,7 +59,7 @@ public class GameSystem {
     public void createAndUpdateArea() {
         GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerNumberOfUnits + GlobalVariables.playerNumberOfDeuces +
                 GlobalVariables.playerNumberOfTriplets + GlobalVariables.playerNumberOfFours
-                + GlobalVariables.playerNumberOfFives + GlobalVariables.playerNumberOfSixes;
+                + GlobalVariables.playerNumberOfFives + GlobalVariables.playerNumberOfSixes + GlobalVariables.playerBonusPoints;
         GlobalVariables.botSummaAllNumbers = GlobalVariables.botNumberOfUnits + GlobalVariables.botNumberOfDeuces
                 + GlobalVariables.botNumberOfTriplets + GlobalVariables.botNumberOfFours + GlobalVariables.botNumberOfFives + GlobalVariables.botNumberOfSixes;
         scoreCard =
