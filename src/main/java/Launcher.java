@@ -18,6 +18,7 @@ public class Launcher {
     static ArrayList<Integer> arrayCubesRandoms = new ArrayList<>();
     static HashSet<Integer> hashSet = new HashSet<>();
 
+
     public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException, InterruptedException {
 
         int time = 3;
@@ -140,6 +141,7 @@ public class Launcher {
         GameSystem.clearAllGlobalVariables();
         gameSystem.throwRandomCube();
         gameSystem.playersPersonScore();
+
         gameSystem.createAndUpdateArea();
     }
 
@@ -159,7 +161,7 @@ public class Launcher {
             } else {
                 switch (numb) {
                     case 1 -> startingMethodNumbers();
-                    case 2 -> getPersonLowerSelection();
+                    case 2 -> endingMethodNumbers();
                     default -> System.out.println("Неверный ввод. Попробуй еще раз");
                 }
                 isFalse = true;
@@ -174,6 +176,12 @@ public class Launcher {
         resetVariableValue(numb);
         smartSimplificationMethod(numb);
 
+    }
+
+    public void endingMethodNumbers() throws NoSuchFieldException, IllegalAccessException {
+        String numb = getPersonLowerSelection();
+        resetVariableValue(numb);
+        endLowerSimplificationMethod(numb);
     }
 
     private static String getPersonUpperSelection() {
@@ -382,42 +390,126 @@ public class Launcher {
         }
     }
 
+    public static void endLowerSimplificationMethod(String numb) {
+
+        int stream;
+
+        HashMap<String, Integer> hashMap = new HashMap<>();
+
+        hashMap.put(gameSystem.diceOne, 1);
+        hashMap.put(gameSystem.diceTwo, 2);
+        hashMap.put(gameSystem.diceThree, 3);
+        hashMap.put(gameSystem.diceFour, 4);
+        hashMap.put(gameSystem.diceFive, 5);
+        hashMap.put(gameSystem.diceSix, 6);
+        int count;
+        switch (numb) {
+
+            // если Три одинаковых -> перебор массива кубиков -> находим Три одинаковых числа -> сумма -> GlobalVariables.playerThreeOfAKindPoints
+            case "playerThreeOfAKindPoints" -> {
+                if (PlayerPerson.playerCheckTripleDice(gameSystem.arrayCubesRandom)) {
+                    count = hashMap.get(GlobalVariables.numberDiceForVariable);
+                    GlobalVariables.playerThreeOfAKindPoints = count * 3;
+                    GameSystem.variableNames.remove("playerThreeOfAKindPoints");
+                } else {
+                    GameSystem.variableNames.remove("playerThreeOfAKindPoints");
+                    System.out.println("Эй, не шали.");
+                }
+            }
+            // если Четыре одинаковых -> перебор массива кубиков -> находим Четыре одинаковых числа -> сумма -> GlobalVariables.playerFourOfAKindPoints
+            case "playerFourOfAKindPoints" -> {
+                if (PlayerPerson.playerCheckQuadrupleDice(gameSystem.arrayCubesRandom)) {
+                    count = hashMap.get(GlobalVariables.numberDiceForVariable);
+                    GlobalVariables.playerFourOfAKindPoints = count * 4;
+                    GameSystem.variableNames.remove("playerFourOfAKindPoints");
+                } else {
+                    GameSystem.variableNames.remove("playerFourOfAKindPoints");
+                    System.out.println("Не повезло. Эх.");
+                }
+            }
+            // если Фулл-хаус -> перебор массива кубиков -> находим "Фулл-хаус" -> сумма -> GlobalVariables.playerFullHousePoints
+            case "playerFullHousePoints" -> {
+                if (PlayerPerson.playerCheckFullHouse(gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.playerFullHousePoints = 25;
+                    GameSystem.variableNames.remove("playerFullHousePoints");
+                } else {
+                    GameSystem.variableNames.remove("playerFullHousePoints");
+                    System.out.println("Не повезло. Эх.");
+                }
+            }
+            // если Маленький стрит -> перебор массива кубиков -> находим Маленький стрит -> сумма -> GlobalVariables.playerSmallStraightPoints
+            case "playerSmallStraightPoints" -> {
+                if (PlayerPerson.playerCheckLittleStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.playerSmallStraightPoints = 30;
+                    GameSystem.variableNames.remove("playerSmallStraightPoints");
+                } else {
+                    GameSystem.variableNames.remove("playerSmallStraightPoints");
+                    System.out.println("Не повезло. Эх.");
+                }
+            }
+            // если Большой стрит -> перебор массива кубиков -> Большой стрит -> сумма -> GlobalVariables.playerLargeStraightPoints
+            case "playerLargeStraightPoints" -> {
+                if (PlayerPerson.playerCheckBigStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.playerLargeStraightPoints = 30;
+                    GameSystem.variableNames.remove("playerLargeStraightPoints");
+                } else {
+                    GameSystem.variableNames.remove("playerLargeStraightPoints");
+                    System.out.println("Не повезло. Эх.");
+                }
+            }
+            // если Шанс -> сумма -> GlobalVariables.playerChancePoints
+            case "playerChancePoints" -> {
+                GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerChancePoints;
+                GameSystem.variableNames.remove("playerChancePoints");
+            }
+            // если Yahtzee -> перебор массива кубиков -> находим Yahtzee -> сумма -> GlobalVariables.playerYahtzeePoints
+            case "playerYahtzeePoints" -> {
+                if (PlayerPerson.playerCheckYahtzee(gameSystem.arrayCubesRandom)){
+                    GlobalVariables.playerYahtzeePoints = 50;
+                    GameSystem.variableNames.remove("playerCheckYahtzee");
+                }
+            }
+            default -> System.out.println("Ты ввел не корректное число. Проверь пожалуйста, и повторите еще раз");
+        }
+    }
+
     public static String getPersonLowerSelection() {
         System.out.print("1 - Три одинаковых\n2 - Четыре одинаковых\n3 - Фулл-хаус\n4 - Маленький стрит\n5 - Большой стрит\n6 - Шанс\n7 - Yahtzee\nОтвет: ");
         String numb = scanner.nextLine();
+        numb = scanner.nextLine();
 
-
+        while (true) {
+            if (numb.isEmpty()) {
+                System.out.print("Введи цифру от 7 до 13, для выбора куда хочешь засчитать свои очки\nОтвет: ");
+                numb = scanner.nextLine();
+            } else if (!Character.isDigit(numb.charAt(0))) {
+                System.out.print("Ты ввел не цифру! Попробуй еще раз\nОтвет: ");
+                numb = scanner.nextLine();
+            } else {
+                int viewNumber = Integer.parseInt(numb);
+                if (viewNumber < 7 || viewNumber > 13) {
+                    System.out.print("Выход за границы! Ты ввел -> " + viewNumber + ". Требуется ввод от 7 до 13\nОтвет: ");
+                    numb = scanner.nextLine();
+                } else if (stringArrayList.contains(numb)) {
+                    System.out.print("Ты уже это вводил, забыл?. Попробуй еще раз\nВыбери от 1 до 6, куда желаешь записать число\nОтвет: ");
+                    numb = scanner.nextLine();
+                } else {
+                    stringArrayList.add(numb);
+                    break;
+                }
+            }
+        }
         switch (numb) {
-            case "1":
-                // если Три одинаковых -> перебор массива кубиков -> находим Три одинаковых числа -> сумма -> GlobalVariables.playerThreeOfAKindPoints
-                numb = "playerThreeOfAKindPoints";
-                break;
-            case "2":
-                // если Четыре одинаковых -> перебор массива кубиков -> находим Четыре одинаковых числа -> сумма -> GlobalVariables.playerFourOfAKindPoints
-                numb = "playerFourOfAKindPoints";
-                break;
-            case "3":
-                // если Фулл-хаус -> перебор массива кубиков -> находим "Фулл-хаус" -> сумма -> GlobalVariables.playerFullHousePoints
-                numb = "playerFullHousePoints";
-                break;
-            case "4":
-                // если Маленький стрит -> перебор массива кубиков -> находим Маленький стрит -> сумма -> GlobalVariables.playerSmallStraightPoints
-                numb = "playerSmallStraightPoints";
-                break;
-            case "5":
-                // если Большой стрит -> перебор массива кубиков -> Большой стрит -> сумма -> GlobalVariables.playerLargeStraightPoints
-                numb = "playerLargeStraightPoints";
-                break;
-            case "6":
-                // если Шанс -> перебор массива кубиков -> находим Шанс -> сумма -> GlobalVariables.playerChancePoints
-                numb = "playerChancePoints";
-                break;
-            case "7":
-                // если Yahtzee -> перебор массива кубиков -> находим Yahtzee -> сумма -> GlobalVariables.playerYahtzeePoints
-                numb = "playerYahtzeePoints";
-                break;
-            default:
-                System.out.println("Ты ввел не корректное число. Проверь пожалуйста, и повторите еще раз");
+            case "7" -> numb = "playerThreeOfAKindPoints";
+            case "8" -> numb = "playerFourOfAKindPoints";
+            case "9" -> numb = "playerFullHousePoints";
+            case "10" -> numb = "playerSmallStraightPoints";
+            case "11" -> numb = "playerLargeStraightPoints";
+            case "12" -> numb = "playerChancePoints";
+            case "13" -> numb = "playerYahtzeePoints";
+
+            default -> System.out.println("Некорректный ввод. Повтори еще раз");
+
         }
         return numb;
     }

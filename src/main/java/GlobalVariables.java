@@ -30,5 +30,5 @@ public class GlobalVariables {
     public static int botLargeStraightPoints;
     public static int botChancePoints;
     public static int botYahtzeePoints;
-
+   public static String numberDiceForVariable;
 }

@@ -135,55 +135,55 @@ public class GameSystem {
     public void playersPersonScore() {
 
         List<String> cubesNumber = arrayCubesRandom;
-           // #1
-           if (cubesNumber.contains(diceOne) && variableNames.contains("playerNumberOfUnits")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceOne)) {
-                       GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
-                   }
-               }
+        // #1
+        if (cubesNumber.contains(diceOne) && variableNames.contains("playerNumberOfUnits")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceOne)) {
+                    GlobalVariables.playerNumberOfUnits = GlobalVariables.playerNumberOfUnits + CUBE_ONE;
+                }
+            }
 
-           }
-           // #2
-           if (cubesNumber.contains(diceTwo) && variableNames.contains("playerNumberOfDeuces")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceTwo)) {
-                       GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
-                   }
-               }
-           }
-           // #3
-           if (cubesNumber.contains(diceThree) && variableNames.contains("playerNumberOfTriplets")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceThree)) {
-                       GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
-                   }
-               }
-           }
-           // #4
-           if (cubesNumber.contains(diceFour) && variableNames.contains("playerNumberOfFours")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceFour)) {
-                       GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
-                   }
-               }
-           }
-           // #5
-           if (cubesNumber.contains(diceFive) && variableNames.contains("playerNumberOfFives")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceFive)) {
-                       GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
-                   }
-               }
-           }
-           // #6
-           if (cubesNumber.contains(diceSix) && variableNames.contains("playerNumberOfSixes")) {
-               for (String s : arrayCubesRandom) {
-                   if (s.equals(diceSix)) {
-                       GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
-                   }
-               }
-           }
+        }
+        // #2
+        if (cubesNumber.contains(diceTwo) && variableNames.contains("playerNumberOfDeuces")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceTwo)) {
+                    GlobalVariables.playerNumberOfDeuces = GlobalVariables.playerNumberOfDeuces + CUBE_TWO;
+                }
+            }
+        }
+        // #3
+        if (cubesNumber.contains(diceThree) && variableNames.contains("playerNumberOfTriplets")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceThree)) {
+                    GlobalVariables.playerNumberOfTriplets = GlobalVariables.playerNumberOfTriplets + CUBE_THREE;
+                }
+            }
+        }
+        // #4
+        if (cubesNumber.contains(diceFour) && variableNames.contains("playerNumberOfFours")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceFour)) {
+                    GlobalVariables.playerNumberOfFours = GlobalVariables.playerNumberOfFours + CUBE_FOUR;
+                }
+            }
+        }
+        // #5
+        if (cubesNumber.contains(diceFive) && variableNames.contains("playerNumberOfFives")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceFive)) {
+                    GlobalVariables.playerNumberOfFives = GlobalVariables.playerNumberOfFives + CUBE_FIVE;
+                }
+            }
+        }
+        // #6
+        if (cubesNumber.contains(diceSix) && variableNames.contains("playerNumberOfSixes")) {
+            for (String s : arrayCubesRandom) {
+                if (s.equals(diceSix)) {
+                    GlobalVariables.playerNumberOfSixes = GlobalVariables.playerNumberOfSixes + CUBE_SIX;
+                }
+            }
+        }
         arrayAddPersonScore();
     }
 
@@ -200,11 +200,11 @@ public class GameSystem {
     public static void collectionAllVariablesNames() {
 
         variableNames = new ArrayList<>(Arrays.asList("playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
-                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes", "playerSummaAllNumbers",
+                "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
                 "botNumberOfUnits", "botNumberOfDeuces", "botNumberOfTriplets", "botNumberOfFours", "botNumberOfFives",
                 "botNumberOfSixes", "playerBonusPoints", "playerThreeOfAKindPoints",
                 "playerFourOfAKindPoints", "playerFullHousePoints", "playerYahtzeePoints",
-                "playerLargeStraightPoints", "playerChancePoints", "botThreeOfAKindPoints",
+                "playerLargeStraightPoints", "playerSmallStraightPoints", "playerChancePoints", "botThreeOfAKindPoints",
                 "botBonusPoints", "botFourOfAKindPoints", "botFullHousePoints",
                 "botSmallStraightPoints", "botLargeStraightPoints", "botChancePoints",
                 "botYahtzeePoints"));
