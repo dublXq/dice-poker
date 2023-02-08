@@ -4,15 +4,15 @@ import java.util.*;
  * @author Evgeniy_Tyslevich
  * @link <a href="https://github.com/dublXq">...</a>
  */
-public class PlayerPerson {
+public class PlayerCheck {
     public static void playerCalculateBonusPoints() {
         if (GlobalVariables.playerSummaAllNumbers >= 63) {
             GlobalVariables.playerBonusPoints = 35;
             GameSystem.variableNames.remove("playerBonusPoints");
         }
     }
-
     public static Boolean playerCheckTripleDice(ArrayList<String> diceValues) {
+        GlobalVariables.numberDiceForVariable = null;
         for (int i = 0; i < diceValues.size(); i++) {
             GlobalVariables.numberDiceForVariable = diceValues.get(i);
             int count = 0;
@@ -27,7 +27,6 @@ public class PlayerPerson {
         }
         return false;
     }
-
     public static Boolean playerCheckQuadrupleDice(ArrayList<String> diceValues) {
         for (int i = 0; i < diceValues.size(); i++) {
             GlobalVariables.numberDiceForVariable = diceValues.get(i);
@@ -43,7 +42,6 @@ public class PlayerPerson {
         }
         return false;
     }
-
     public static Boolean playerCheckFullHouse(ArrayList<String> diceValues) {
         boolean check = playerCheckTripleDice(diceValues);
         if (check) {
@@ -76,7 +74,6 @@ public class PlayerPerson {
         }
         return false;
     }
-
     public static boolean playerCheckLittleStreet(HashMap<String, Integer> hashMap, ArrayList<String> diceValues) {
         HashSet<Integer> hashSet = new HashSet<>();
         Set<Integer> values1 = Set.of(1, 2, 3, 4);
@@ -121,7 +118,6 @@ public class PlayerPerson {
         }
         return false;
     }
-
     public static void wordBookWordsOfSupport() {
         Random random = new Random();
         ArrayList<String> wordBook = new ArrayList<>();
