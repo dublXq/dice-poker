@@ -53,8 +53,8 @@ public class GameSystem {
             |o o|
             |o o|
             -----""";
-    public ArrayList<String> arrayCubesRandom = new ArrayList<>();
-    public static ArrayList<Integer> arrayList = new ArrayList<>();
+    public final ArrayList<String> arrayCubesRandom = new ArrayList<>();
+    public static final ArrayList<Integer> scoreTimeArrayList = new ArrayList<>();
 
     public void createAndUpdateArea() {
         GlobalVariables.playerSummaAllNumbers = GlobalVariables.playerNumberOfUnits + GlobalVariables.playerNumberOfDeuces +
@@ -134,7 +134,6 @@ public class GameSystem {
                 GlobalVariables.botFourOfAKindPoints, GlobalVariables.botThreeOfAKindPoints);
         System.out.println(scoreCard);
     }
-
     public void throwRandomCube() {
         Random random = new Random();
         String[] arrayCubes = new String[]{diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix};
@@ -144,7 +143,6 @@ public class GameSystem {
             arrayCubesRandom.add(randomCube);
         }
     }
-
     public void playersPersonScore() {
 
         List<String> cubesNumber = arrayCubesRandom;
@@ -198,21 +196,17 @@ public class GameSystem {
             }
         }
     }
-
     public static void collectionAllVariablesNames() {
 
         variableNames = new ArrayList<>(Arrays.asList("playerNumberOfUnits", "playerNumberOfDeuces", "playerNumberOfTriplets",
                 "playerNumberOfFours", "playerNumberOfFives", "playerNumberOfSixes",
                 "botNumberOfUnits", "botNumberOfDeuces", "botNumberOfTriplets", "botNumberOfFours", "botNumberOfFives",
-                "botNumberOfSixes", "playerBonusPoints", "playerThreeOfAKindPoints",
-                "playerFourOfAKindPoints", "playerFullHousePoints", "playerYahtzeePoints",
-                "playerLargeStraightPoints", "playerSmallStraightPoints", "playerChancePoints", "botThreeOfAKindPoints",
-                "botBonusPoints", "botFourOfAKindPoints", "botFullHousePoints",
-                "botSmallStraightPoints", "botLargeStraightPoints", "botChancePoints",
-                "botYahtzeePoints"));
+                "botNumberOfSixes", "botThreeOfAKindPoints", "botFourOfAKindPoints","botFullHousePoints", "botSmallStraightPoints",
+                "botLargeStraightPoints", "botChancePoints", "botYahtzeePoints", "playerThreeOfAKindPoints", "playerFourOfAKindPoints",
+                "playerFullHousePoints", "playerSmallStraightPoints", "playerLargeStraightPoints", "playerChancePoints",
+                "playerYahtzeePoints"));
 
     }
-
     public static void clearAllGlobalVariables() throws NoSuchFieldException, IllegalAccessException {
 
         for (String variableName : variableNames) {
