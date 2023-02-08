@@ -13,15 +13,14 @@ public class Launcher {
     static final GameSystem gameSystem = new GameSystem();
     static boolean isFalse = false;
     static ArrayList<String> stringArrayList = new ArrayList<>();
-    static Random random = new Random();
     private static int number;
     static ArrayList<Integer> arrayCubesRandoms = new ArrayList<>();
     static HashSet<Integer> hashSet = new HashSet<>();
 
+    static int TIME = 3;
 
     public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException, InterruptedException {
 
-        int time = 3;
 
         System.out.println("\nПриветствую друг! Тебя приветствует Игра в Покер на костях o(￣▽￣)ｄ");
         while (true) {
@@ -46,7 +45,7 @@ public class Launcher {
             if (numb_2.equals("1")) {
                 System.out.println("Желаем удачи в победе!");
                 launcher.start();
-                time--;
+                TIME--;
                 break;
             } else if (numb_2.equals("2")) {
                 System.out.println("Удачи! Рад был увидеться!(👉ﾟヮﾟ)👉");
@@ -56,7 +55,7 @@ public class Launcher {
                 numb_2 = scanner.nextLine();
             }
         }
-        RollOrScore(time);
+        RollOrScore(TIME);
         startWalkBot();
 
         while (true) {
@@ -64,7 +63,7 @@ public class Launcher {
                 break;
             } else {
                 PlayerPerson.wordBookWordsOfSupport();
-                startWalkPerson(time);
+                startWalkPerson(TIME);
                 System.out.println("------------------------------------");
                 startWalkBot();
             }
@@ -75,12 +74,21 @@ public class Launcher {
         System.out.println("Ну что ж, дорогой друг. Поздравляю! Ты прошел первый раунд игры. Твоя сумма очков, сейчас составляет --> "
                 + GlobalVariables.playerSummaAllNumbers + " очков.\n" +
                 "Переходим ко второму раунду!");
-        for (int i = 10; i >= 0; i--) {
+        for (int i = 5; i >= 0; i--) {
             Thread.sleep(1000);
             System.out.println("Старт через " + i + " секунд");
         }
         System.out.println("----------- START -----------");
-
+        while (true) {
+            if (hashSet.size() == 13) {
+                break;
+            } else {
+                PlayerPerson.wordBookWordsOfSupport();
+                startWalkPerson(TIME);
+                System.out.println("------------------------------------");
+                startWalkBot();
+            }
+        }
 
     }
 
@@ -113,23 +121,19 @@ public class Launcher {
             if (numb.equals("1")) {
                 if (time == 0) {
                     System.out.println("Это был последний возможный бросок. Выбери куда засчитать очки?");
-                    // Код (метод)
                     time = 3;
                     launcher.methodResultScare();
                     break;
-
                 } else {
                     allClear();
                     launcher.start();
                     time--;
                 }
-
             } else if (numb.equals("2")) {
                 // Код, который дает определение куда засчитать очки игрока (метод)
                 time = 3;
                 launcher.methodResultScare();
                 break;
-
             } else {
                 System.out.println("Данного варианта нет. Попробуй еще раз");
             }
@@ -141,7 +145,6 @@ public class Launcher {
         GameSystem.clearAllGlobalVariables();
         gameSystem.throwRandomCube();
         gameSystem.playersPersonScore();
-
         gameSystem.createAndUpdateArea();
     }
 
@@ -171,11 +174,9 @@ public class Launcher {
     }
 
     public void startingMethodNumbers() throws NoSuchFieldException, IllegalAccessException {
-
         String numb = getPersonUpperSelection();
         resetVariableValue(numb);
         smartSimplificationMethod(numb);
-
     }
 
     public void endingMethodNumbers() throws NoSuchFieldException, IllegalAccessException {
@@ -188,7 +189,6 @@ public class Launcher {
         System.out.print("1 - Единицы\n2 - Двойки\n3 - Тройки\n4 - Четверки\n5 - Пятерки\n6 - Шестерки\nОтвет: ");
         String numb = scanner.nextLine();
         numb = scanner.nextLine();
-
         while (true) {
             if (numb.isEmpty()) {
                 System.out.print("Введи цифру от 1 до 6, для выбора куда хочешь засчитать свои очки\nОтвет: ");
@@ -221,13 +221,10 @@ public class Launcher {
             default -> System.out.println("Некорректный ввод. Повтори еще раз");
 
         }
-
         return numb;
     }
 
     private static void resetVariableValue(String numb) throws IllegalAccessException, NoSuchFieldException {
-
-
         for (String variableName : GameSystem.variableNames) {
             if (variableName.contains(numb)) {
                 GlobalVariables.class.getField(variableName).set(null, 0);
@@ -235,15 +232,16 @@ public class Launcher {
         }
     }
 
-    public static void randomChooseBot() throws NoSuchFieldException, IllegalAccessException {
-        number = 0;
+    public static void randomChooseBot(HashMap<String, Integer> hashMap) throws NoSuchFieldException, IllegalAccessException {
         allClear();
+        number = 0;
+        Random random = new Random();
         ArrayList<Integer> integerArrayList = new ArrayList<>();
-
         while (hashSet.containsAll(integerArrayList)) {
+            allClear();
             System.out.println("Бот делает бросок ^_^");
             gameSystem.throwRandomCube();
-            integerArrayList.clear();
+            TIME--;
             if (!arrayCubesRandoms.contains(1)) {
                 if (gameSystem.arrayCubesRandom.contains(gameSystem.diceOne)) {
                     integerArrayList.add(1);
@@ -274,8 +272,43 @@ public class Launcher {
                     integerArrayList.add(6);
                 }
             }
+            if (!arrayCubesRandoms.contains(7)) {
+                if (PlayerPerson.playerCheckTripleDice(gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(7);
+                }
+            }
+            if (!arrayCubesRandoms.contains(8)) {
+                if (PlayerPerson.playerCheckQuadrupleDice(gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(8);
+                }
+            }
+            if (!arrayCubesRandoms.contains(9)) {
+                if (PlayerPerson.playerCheckFullHouse(gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(9);
+                }
+            }
+            if (!arrayCubesRandoms.contains(10)) {
+                if (PlayerPerson.playerCheckLittleStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(10);
+                }
+            }
+            if (!arrayCubesRandoms.contains(11)) {
+                if (PlayerPerson.playerCheckBigStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(11);
+                }
+            }
+            if (!arrayCubesRandoms.contains(12)) {
+                integerArrayList.add(12);
+            }
+            if (!arrayCubesRandoms.contains(13)) {
+                if (PlayerPerson.playerCheckYahtzee(gameSystem.arrayCubesRandom)) {
+                    integerArrayList.add(13);
+                }
+            }
+            if (TIME == 0) {
+                break;
+            }
         }
-
         int index = random.nextInt(integerArrayList.size());
         number = integerArrayList.get(index);
         arrayCubesRandoms.add(number);
@@ -285,20 +318,23 @@ public class Launcher {
 
 
     private static void smartSimplificationMethodForBot() throws NoSuchFieldException, IllegalAccessException {
-
-        randomChooseBot();
-        System.out.println();
         int stream;
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put(gameSystem.diceOne, 1);
+        hashMap.put(gameSystem.diceTwo, 2);
+        hashMap.put(gameSystem.diceThree, 3);
+        hashMap.put(gameSystem.diceFour, 4);
+        hashMap.put(gameSystem.diceFive, 5);
+        hashMap.put(gameSystem.diceSix, 6);
+        randomChooseBot(hashMap);
         switch (number) {
             case 1 -> {
-                // если единицы -> перебор массива кубиков -> находим единицы -> сумма -> GlobalVariables.playerNumberOfUnits
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceOne::equals).count();
                 GlobalVariables.botNumberOfUnits = stream;
                 gameSystem.createAndUpdateArea();
                 GameSystem.variableNames.remove("botNumberOfUnits");
             }
             case 2 -> {
-                // если двойки -> перебор массива кубиков -> находим двойки -> сумма -> GlobalVariables.playerNumberOfDeuces
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceTwo::equals).count();
                 stream = stream * gameSystem.CUBE_TWO;
                 GlobalVariables.botNumberOfDeuces = stream;
@@ -306,7 +342,6 @@ public class Launcher {
                 GameSystem.variableNames.remove("botNumberOfDeuces");
             }
             case 3 -> {
-                // если тройки -> перебор массива кубиков -> находим тройки -> сумма -> GlobalVariables.playerNumberOfTriplets
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceThree::equals).count();
                 stream = stream * gameSystem.CUBE_THREE;
                 GlobalVariables.botNumberOfTriplets = stream;
@@ -314,7 +349,6 @@ public class Launcher {
                 GameSystem.variableNames.remove("botNumberOfTriplets");
             }
             case 4 -> {
-//                 если четверки -> перебор массива кубиков -> находим четверки -> сумма -> GlobalVariables.playerNumberOfFours
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceFour::equals).count();
                 stream = stream * gameSystem.CUBE_FOUR;
                 GlobalVariables.botNumberOfFours = stream;
@@ -322,7 +356,6 @@ public class Launcher {
                 GameSystem.variableNames.remove("botNumberOfFours");
             }
             case 5 -> {
-//                 если пятерки -> перебор массива кубиков -> находим пятерки -> сумма -> GlobalVariables.playerNumberOfFives
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceFive::equals).count();
                 stream = stream * gameSystem.CUBE_FIVE;
                 GlobalVariables.botNumberOfFives = stream;
@@ -330,14 +363,76 @@ public class Launcher {
                 GameSystem.variableNames.remove("botNumberOfFives");
             }
             case 6 -> {
-//                 если шестерки -> перебор массива кубиков -> находим шестерки -> сумма -> GlobalVariables.playerNumberOfSixes
                 stream = (int) gameSystem.arrayCubesRandom.stream().filter(gameSystem.diceSix::equals).count();
                 stream = stream * gameSystem.CUBE_SIX;
                 GlobalVariables.botNumberOfSixes = stream;
                 gameSystem.createAndUpdateArea();
                 GameSystem.variableNames.remove("botNumberOfSixes");
             }
-            default -> System.out.println("Ты ввел не корректное число. Проверь пожалуйста, и повтори еще раз");
+            case 7 -> {
+                if (PlayerPerson.playerCheckTripleDice(gameSystem.arrayCubesRandom)) {
+                    stream = hashMap.get(GlobalVariables.numberDiceForVariable);
+                    GlobalVariables.botThreeOfAKindPoints = stream * 3;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botThreeOfAKindPoints");
+                } else {
+                    GlobalVariables.botThreeOfAKindPoints = 0;
+                    GameSystem.variableNames.remove("botThreeOfAKindPoints");
+                }
+            }
+            case 8 -> {
+                if (PlayerPerson.playerCheckQuadrupleDice(gameSystem.arrayCubesRandom)) {
+                    stream = hashMap.get(GlobalVariables.numberDiceForVariable);
+                    GlobalVariables.botFourOfAKindPoints = stream * 4;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botFourOfAKindPoints");
+                }
+            }
+            case 9 -> {
+                if (PlayerPerson.playerCheckFullHouse(gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.botFullHousePoints = 25;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botFullHousePoints");
+                } else {
+                    GlobalVariables.botFullHousePoints = 0;
+                    GameSystem.variableNames.remove("botFullHousePoints");
+                }
+            }
+            case 10 -> {
+                if (PlayerPerson.playerCheckLittleStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.botSmallStraightPoints = 30;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botSmallStraightPoints");
+                } else {
+                    GlobalVariables.botSmallStraightPoints = 0;
+                    GameSystem.variableNames.remove("botSmallStraightPoints");
+                }
+            }
+            case 11 -> {
+                if (PlayerPerson.playerCheckBigStreet(hashMap, gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.botLargeStraightPoints = 40;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botLargeStraightPoints");
+                } else {
+                    GlobalVariables.botLargeStraightPoints = 0;
+                    GameSystem.variableNames.remove("botLargeStraightPoints");
+                }
+            }
+            case 12 -> {
+                GlobalVariables.botSummaAllNumbers = GlobalVariables.botChancePoints;
+                gameSystem.createAndUpdateArea();
+                GameSystem.variableNames.remove("botChancePoints");
+            }
+            case 13 -> {
+                if (PlayerPerson.playerCheckYahtzee(gameSystem.arrayCubesRandom)) {
+                    GlobalVariables.botYahtzeePoints = 50;
+                    gameSystem.createAndUpdateArea();
+                    GameSystem.variableNames.remove("botYahtzeePoints");
+                } else {
+                    GlobalVariables.botYahtzeePoints = 0;
+                    GameSystem.variableNames.remove("botYahtzeePoints");
+                }
+            }
         }
     }
 
@@ -391,11 +486,7 @@ public class Launcher {
     }
 
     public static void endLowerSimplificationMethod(String numb) {
-
-        int stream;
-
         HashMap<String, Integer> hashMap = new HashMap<>();
-
         hashMap.put(gameSystem.diceOne, 1);
         hashMap.put(gameSystem.diceTwo, 2);
         hashMap.put(gameSystem.diceThree, 3);
@@ -450,7 +541,7 @@ public class Launcher {
             // если Большой стрит -> перебор массива кубиков -> Большой стрит -> сумма -> GlobalVariables.playerLargeStraightPoints
             case "playerLargeStraightPoints" -> {
                 if (PlayerPerson.playerCheckBigStreet(hashMap, gameSystem.arrayCubesRandom)) {
-                    GlobalVariables.playerLargeStraightPoints = 30;
+                    GlobalVariables.playerLargeStraightPoints = 40;
                     GameSystem.variableNames.remove("playerLargeStraightPoints");
                 } else {
                     GameSystem.variableNames.remove("playerLargeStraightPoints");
@@ -464,7 +555,7 @@ public class Launcher {
             }
             // если Yahtzee -> перебор массива кубиков -> находим Yahtzee -> сумма -> GlobalVariables.playerYahtzeePoints
             case "playerYahtzeePoints" -> {
-                if (PlayerPerson.playerCheckYahtzee(gameSystem.arrayCubesRandom)){
+                if (PlayerPerson.playerCheckYahtzee(gameSystem.arrayCubesRandom)) {
                     GlobalVariables.playerYahtzeePoints = 50;
                     GameSystem.variableNames.remove("playerCheckYahtzee");
                 }
@@ -509,7 +600,6 @@ public class Launcher {
             case "13" -> numb = "playerYahtzeePoints";
 
             default -> System.out.println("Некорректный ввод. Повтори еще раз");
-
         }
         return numb;
     }

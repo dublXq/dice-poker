@@ -62,6 +62,13 @@ public class GameSystem {
                 + GlobalVariables.playerNumberOfFives + GlobalVariables.playerNumberOfSixes + GlobalVariables.playerBonusPoints;
         GlobalVariables.botSummaAllNumbers = GlobalVariables.botNumberOfUnits + GlobalVariables.botNumberOfDeuces
                 + GlobalVariables.botNumberOfTriplets + GlobalVariables.botNumberOfFours + GlobalVariables.botNumberOfFives + GlobalVariables.botNumberOfSixes;
+        summaOfAllNumbersPerson = GlobalVariables.playerSummaAllNumbers + GlobalVariables.playerBonusPoints + GlobalVariables.playerThreeOfAKindPoints +
+                GlobalVariables.playerFourOfAKindPoints + GlobalVariables.playerFullHousePoints +
+                GlobalVariables.playerChancePoints + GlobalVariables.playerYahtzeePoints + GlobalVariables.playerSmallStraightPoints +
+                GlobalVariables.playerLargeStraightPoints;
+        summaOfAllNumbersBot = GlobalVariables.botSummaAllNumbers + GlobalVariables.botBonusPoints + GlobalVariables.botThreeOfAKindPoints +
+                GlobalVariables.botFourOfAKindPoints + GlobalVariables.botFullHousePoints + GlobalVariables.botSmallStraightPoints +
+                GlobalVariables.botLargeStraightPoints + GlobalVariables.botChancePoints + GlobalVariables.botYahtzeePoints;
         scoreCard =
                 "------------------------------------\n" +
                         "|\t\t\t\t      | Игрок | Бот |\n" +
@@ -118,7 +125,13 @@ public class GameSystem {
                 GlobalVariables.playerNumberOfTriplets, GlobalVariables.playerNumberOfFours,
                 GlobalVariables.playerNumberOfFives, GlobalVariables.playerNumberOfSixes, GlobalVariables.botNumberOfUnits,
                 GlobalVariables.botNumberOfDeuces, GlobalVariables.botNumberOfTriplets, GlobalVariables.botNumberOfFours,
-                GlobalVariables.botNumberOfFives, GlobalVariables.botNumberOfSixes);
+                GlobalVariables.botNumberOfFives, GlobalVariables.botNumberOfSixes, GlobalVariables.playerThreeOfAKindPoints,
+                GlobalVariables.playerSummaAllNumbers, GlobalVariables.playerBonusPoints, GlobalVariables.playerFourOfAKindPoints,
+                GlobalVariables.playerFullHousePoints, GlobalVariables.playerSmallStraightPoints,
+                GlobalVariables.playerLargeStraightPoints, GlobalVariables.playerChancePoints, GlobalVariables.playerYahtzeePoints,
+                summaOfAllNumbersPerson, GlobalVariables.botYahtzeePoints, GlobalVariables.botChancePoints,
+                GlobalVariables.botLargeStraightPoints, GlobalVariables.botSmallStraightPoints, GlobalVariables.botFullHousePoints,
+                GlobalVariables.botFourOfAKindPoints, GlobalVariables.botThreeOfAKindPoints);
         System.out.println(scoreCard);
     }
 
@@ -184,17 +197,6 @@ public class GameSystem {
                 }
             }
         }
-        arrayAddPersonScore();
-    }
-
-
-    private void arrayAddPersonScore() {
-        arrayList.add(0, GlobalVariables.playerNumberOfUnits);
-        arrayList.add(1, GlobalVariables.playerNumberOfDeuces);
-        arrayList.add(2, GlobalVariables.playerNumberOfTriplets);
-        arrayList.add(3, GlobalVariables.playerNumberOfFours);
-        arrayList.add(4, GlobalVariables.playerNumberOfFives);
-        arrayList.add(5, GlobalVariables.playerNumberOfSixes);
     }
 
     public static void collectionAllVariablesNames() {

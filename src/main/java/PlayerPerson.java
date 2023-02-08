@@ -5,9 +5,6 @@ import java.util.*;
  * @link <a href="https://github.com/dublXq">...</a>
  */
 public class PlayerPerson {
-
-    static GameSystem gameSystem = new GameSystem();
-
     public static void playerCalculateBonusPoints() {
         if (GlobalVariables.playerSummaAllNumbers >= 63) {
             GlobalVariables.playerBonusPoints = 35;
@@ -16,7 +13,6 @@ public class PlayerPerson {
     }
 
     public static Boolean playerCheckTripleDice(ArrayList<String> diceValues) {
-
         for (int i = 0; i < diceValues.size(); i++) {
             GlobalVariables.numberDiceForVariable = diceValues.get(i);
             int count = 0;
@@ -82,7 +78,6 @@ public class PlayerPerson {
     }
 
     public static boolean playerCheckLittleStreet(HashMap<String, Integer> hashMap, ArrayList<String> diceValues) {
-
         HashSet<Integer> hashSet = new HashSet<>();
         Set<Integer> values1 = Set.of(1, 2, 3, 4);
         Set<Integer> values2 = Set.of(2, 3, 4, 5);
@@ -118,8 +113,13 @@ public class PlayerPerson {
     }
 
     public static boolean playerCheckYahtzee(ArrayList<String> diceValues) {
-        Set<String> uniqueValues = new HashSet<>(diceValues);
-        return uniqueValues.size() == 1;
+        for (String value : diceValues) {
+            long count = diceValues.stream().filter(v -> v.equals(value)).count();
+            if (count == 5) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void wordBookWordsOfSupport() {
@@ -147,6 +147,4 @@ public class PlayerPerson {
         String randomWord = wordBook.get(randomIndex);
         System.out.println(randomWord);
     }
-
-
 }
